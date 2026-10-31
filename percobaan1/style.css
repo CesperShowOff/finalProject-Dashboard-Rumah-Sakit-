@@ -1,0 +1,141 @@
+/* ============================================================
+   style.css — Task List App
+   Additional styles that complement Tailwind utility classes.
+   Only things Tailwind cannot express easily live here.
+   ============================================================ */
+
+/* ── Custom thin scrollbar for the task list ── */
+#task-list {
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+}
+#task-list::-webkit-scrollbar {
+  width: 4px;
+}
+#task-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+#task-list::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+/* ── Filter button: active state ── */
+.filter-btn {
+  color: #64748b; /* slate-500 */
+}
+.filter-btn:hover {
+  color: #1E40AF; /* brand-blue */
+}
+.active-filter {
+  background-color: #ffffff;
+  color: #1E40AF;           /* brand-blue */
+  box-shadow: 0 1px 4px rgba(30, 64, 175, 0.15);
+}
+
+/* ── Task item slide-in animation ── */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.task-item {
+  animation: slideIn 0.2s ease forwards;
+}
+
+/* ── Task item slide-out animation (added via JS before removal) ── */
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 80px;
+    margin-bottom: 0.5rem;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+    margin-bottom: 0;
+  }
+}
+.task-item-removing {
+  animation: slideOut 0.2s ease forwards;
+  overflow: hidden;
+}
+
+/* ── Completed task: strikethrough text ── */
+.task-text-completed {
+  text-decoration: line-through;
+  color: #94a3b8; /* slate-400 */
+}
+
+/* ── Custom checkbox (hides native, shows styled) ── */
+.task-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid #CBD5E1;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+.task-checkbox:checked {
+  background-color: #22c55e; /* green-500 */
+  border-color: #22c55e;
+}
+/* Checkmark tick inside the circle */
+.task-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+/* ── Icon action buttons (edit / delete) ── */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  transition: background-color 0.15s, transform 0.15s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  flex-shrink: 0;
+}
+.btn-icon:hover {
+  transform: scale(1.1);
+}
+.btn-edit:hover  { background-color: #EFF6FF; } /* blue-50  */
+.btn-delete:hover { background-color: #FEF2F2; } /* red-50   */
+
+/* ── Modal visibility helpers ── */
+#edit-modal.modal-open {
+  display: flex;
+}
+
+/* ── Add button pulse on focus ── */
+.add-btn:focus-visible {
+  outline: 2px solid #F97316;
+  outline-offset: 2px;
+}
